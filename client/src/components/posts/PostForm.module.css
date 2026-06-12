@@ -1,0 +1,33 @@
+.toggle {
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  align-self: flex-start;
+}
+
+.form {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.submitBtn {
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+}

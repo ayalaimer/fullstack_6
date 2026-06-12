@@ -1,0 +1,91 @@
+.container {
+  margin-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.comment {
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: 0.625rem 0.75rem;
+  border-left: 3px solid #e5e7eb;
+}
+
+.body {
+  font-size: 0.9rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+}
+
+.author {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.editRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.editActions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.editBtn {
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.saveBtn {
+  background: #3b82f6;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 0.8rem;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+}
+
+.loading,
+.empty {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}

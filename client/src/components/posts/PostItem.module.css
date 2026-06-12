@@ -1,0 +1,89 @@
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.25rem 1.25rem 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  transition: box-shadow 0.15s;
+}
+
+.card:hover {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.id {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.author {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 0.1rem 0.5rem;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.body {
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.commentsBtn {
+  background: #f0f9ff;
+  color: #0369a1;
+  font-weight: 500;
+  border: 1px solid #bae6fd;
+}
+
+.editBtn {
+  background: #e0e7ff;
+  color: #3730a3;
+  font-weight: 500;
+}
+
+.saveBtn {
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-weight: 500;
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

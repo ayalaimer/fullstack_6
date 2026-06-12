@@ -1,0 +1,101 @@
+.container {
+  margin-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info,
+.empty {
+  font-size: 0.85rem;
+  color: #9ca3af;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.625rem;
+}
+
+.photoCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: 0.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+.thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #e5e7eb;
+}
+
+.photoTitle {
+  font-size: 0.75rem;
+  color: #374151;
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.editBtn {
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 3px;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 3px;
+}
+
+.editRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.editInput {
+  padding: 0.3rem 0.4rem;
+  border: 1px solid #93c5fd;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.editActions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.saveBtn {
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.45rem;
+  border-radius: 3px;
+}
+
+.cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 0.72rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 3px;
+}

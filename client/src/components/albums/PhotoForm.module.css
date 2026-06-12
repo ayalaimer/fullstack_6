@@ -1,0 +1,53 @@
+.openBtn {
+  align-self: flex-start;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  border-radius: 5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  font-size: 0.82rem;
+  color: #1f2937;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.addBtn {
+  background: #3b82f6;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.875rem;
+  border-radius: 5px;
+}
+
+.cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 5px;
+}

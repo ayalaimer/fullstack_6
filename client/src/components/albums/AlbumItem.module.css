@@ -1,0 +1,92 @@
+.card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.titleRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+.editBtn {
+  background: #e0e7ff;
+  color: #3730a3;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+.photosToggle {
+  align-self: flex-start;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  border-radius: 5px;
+}
+
+.editRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.editInput {
+  padding: 0.45rem 0.6rem;
+  border: 1px solid #93c5fd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.editActions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.saveBtn {
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 5px;
+}
+
+.cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 5px;
+}
