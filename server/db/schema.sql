@@ -12,7 +12,7 @@ USE project6;
 -- role: 'user' | 'admin' | 'blocked'
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS users (
-  id       INT          PRIMARY KEY AUTO_INCREMENT,
+  id       CHAR(36)     PRIMARY KEY,
   username VARCHAR(50)  UNIQUE NOT NULL,
   name     VARCHAR(100) NOT NULL,
   email    VARCHAR(100) UNIQUE NOT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS users (
 -- Only authController.js queries this table.
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS passwords (
-  user_id       INT          PRIMARY KEY,
+  user_id       CHAR(36)     PRIMARY KEY,
   password_hash VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS passwords (
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS todos (
   id        INT          PRIMARY KEY AUTO_INCREMENT,
-  user_id   INT          NOT NULL,
+  user_id   CHAR(36)     NOT NULL,
   title     VARCHAR(255) NOT NULL,
   completed BOOLEAN      NOT NULL DEFAULT FALSE,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS todos (
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS posts (
   id      INT          PRIMARY KEY AUTO_INCREMENT,
-  user_id INT          NOT NULL,
+  user_id CHAR(36)     NOT NULL,
   title   VARCHAR(255) NOT NULL,
   body    TEXT,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS posts (
 CREATE TABLE IF NOT EXISTS comments (
   id      INT          PRIMARY KEY AUTO_INCREMENT,
   post_id INT          NOT NULL,
-  user_id INT          NOT NULL,
+  user_id CHAR(36)     NOT NULL,
   name    VARCHAR(255),
   body    TEXT,
   FOREIGN KEY (post_id) REFERENCES posts(id)  ON DELETE CASCADE,
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS comments (
 -- ─────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS albums (
   id      INT          PRIMARY KEY AUTO_INCREMENT,
-  user_id INT          NOT NULL,
+  user_id CHAR(36)     NOT NULL,
   title   VARCHAR(255) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

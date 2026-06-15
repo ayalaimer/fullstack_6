@@ -1,3 +1,4 @@
+const { randomUUID } = require('crypto');
 const pool   = require('../db/connection');
 const bcrypt = require('bcryptjs');
 const jwt    = require('jsonwebtoken');
@@ -56,11 +57,11 @@ const register = async (req, res) => {
     if (existing.length > 0)
       return res.status(409).json({ message: 'Username or email already taken' });
 
-    const [result] = await pool.query(
-      'INSERT INTO users (username, name, email) VALUES (?, ?, ?)',
-      [username, name, email]
+    const userId = randomUUID();
+    await pool.query(
+      'INSERT INTO users (id, username, name, email) VALUES (?, ?, ?, ?)',
+      [userId, username, name, email]
     );
-    const userId = result.insertId;
 
     const hash = await bcrypt.hash(password, 10);
     await pool.query(

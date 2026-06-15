@@ -73,7 +73,7 @@ const getUserAlbums = async (req, res) => {
 
 // מעדכנת את פרטי הפרופיל (שם משתמש, שם, מייל) של המשתמש המחובר בלבד, ובודקת שאין התנגשות עם משתמשים אחרים
 const updateProfile = async (req, res) => {
-  const targetId = Number(req.params.id);
+  const targetId = req.params.id;
   if (req.user.id !== targetId)
     return res.status(403).json({ message: 'Forbidden' });
 
@@ -118,7 +118,7 @@ const updateProfile = async (req, res) => {
 
 // מאפשרת למשתמש המחובר לשנות סיסמה לאחר אימות הסיסמה הנוכחית
 const updatePassword = async (req, res) => {
-  const targetId = Number(req.params.id);
+  const targetId = req.params.id;
   if (req.user.id !== targetId)
     return res.status(403).json({ message: 'Forbidden' });
 
