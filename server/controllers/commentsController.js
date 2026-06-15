@@ -44,7 +44,7 @@ const create = async (req, res) => {
       [postId, req.user.id, name || '', body]
     );
     const [rows] = await pool.query('SELECT * FROM comments WHERE id = ?', [result.insertId]);
-    res.status(201).json(rows[0]);
+    res.status(201).json({message: 'Comment created successfully'});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

@@ -58,7 +58,7 @@ const create = async (req, res) => {
       [req.user.id, title, body || '']
     );
     const [rows] = await pool.query('SELECT * FROM posts WHERE id = ?', [result.insertId]);
-    res.status(201).json(rows[0]);
+    res.status(201).json({message: 'Post created successfully'});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

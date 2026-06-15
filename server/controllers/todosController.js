@@ -48,7 +48,7 @@ const create = async (req, res) => {
       [req.user.id, title, completed ? 1 : 0]
     );
     const [rows] = await pool.query('SELECT * FROM todos WHERE id = ?', [result.insertId]);
-    res.status(201).json(rows[0]);
+    res.status(201).json({message: 'Todo created successfully'});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
