@@ -1,6 +1,7 @@
 const pool   = require('../db/connection');
 const bcrypt = require('bcryptjs');
 
+// מחזירה את רשימת כל המשתמשים מה-VIEW הבטוח (ללא סיסמאות), ממוינים לפי id
 const getAll = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -13,6 +14,7 @@ const getAll = async (req, res) => {
   }
 };
 
+// מחזירה משתמש בודד לפי id, או 404 אם לא נמצא
 const getById = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -27,6 +29,7 @@ const getById = async (req, res) => {
   }
 };
 
+// מחזירה את כל המשימות השייכות למשתמש לפי id
 const getUserTodos = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -40,6 +43,7 @@ const getUserTodos = async (req, res) => {
   }
 };
 
+// מחזירה את כל הפוסטים השייכים למשתמש לפי id
 const getUserPosts = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -53,6 +57,7 @@ const getUserPosts = async (req, res) => {
   }
 };
 
+// מחזירה את כל האלבומים השייכים למשתמש לפי id
 const getUserAlbums = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -66,48 +71,52 @@ const getUserAlbums = async (req, res) => {
   }
 };
 
+// מעדכנת את פרטי הפרופיל (שם משתמש, שם, מייל) של המשתמש המחובר בלבד, ובודקת שאין התנגשות עם משתמשים אחרים
 const updateProfile = async (req, res) => {
   const targetId = Number(req.params.id);
   if (req.user.id !== targetId)
     return res.status(403).json({ message: 'Forbidden' });
 
-  const { username, name, email } = req.body;
   try {
-    const [existing] = await pool.query(
-      'SELECT id, username, name, email FROM users WHERE id = ?',
-      [targetId]
-    );
+    const [existing] = await pool.query('SELECT id FROM users WHERE id = ?', [targetId]);
     if (existing.length === 0) return res.status(404).json({ message: 'User not found' });
 
-    const current = existing[0];
-    const newUsername = username !== undefined ? username : current.username;
-    const newName     = name     !== undefined ? name     : current.name;
-    const newEmail    = email    !== undefined ? email    : current.email;
+    const { username, name, email } = req.body;
+    const updates = {};
+    if (username !== undefined) updates.username = username;
+    if (name     !== undefined) updates.name     = name;
+    if (email    !== undefined) updates.email    = email;
 
-    if (newUsername !== current.username || newEmail !== current.email) {
+    if (Object.keys(updates).length === 0)
+      return res.status(400).json({ message: 'No fields to update' });
+
+    if (updates.username !== undefined || updates.email !== undefined) {
+      const conflictConds = [];
+      const conflictParams = [];
+      if (updates.username !== undefined) { conflictConds.push('username = ?'); conflictParams.push(updates.username); }
+      if (updates.email    !== undefined) { conflictConds.push('email = ?');    conflictParams.push(updates.email); }
+      conflictParams.push(targetId);
+
       const [conflict] = await pool.query(
-        'SELECT id FROM users WHERE (username = ? OR email = ?) AND id != ?',
-        [newUsername, newEmail, targetId]
+        `SELECT id FROM users WHERE (${conflictConds.join(' OR ')}) AND id != ?`,
+        conflictParams
       );
       if (conflict.length > 0)
         return res.status(409).json({ message: 'Username or email already taken' });
     }
 
-    await pool.query(
-      'UPDATE users SET username = ?, name = ?, email = ? WHERE id = ?',
-      [newUsername, newName, newEmail, targetId]
-    );
-    const [rows] = await pool.query(
-      'SELECT id, username, name, email, role FROM safe_users WHERE id = ?',
-      [targetId]
-    );
-    res.json(rows[0]);
+    const fields = Object.keys(updates).map(k => `${k} = ?`).join(', ');
+    const values = [...Object.values(updates), targetId];
+    await pool.query(`UPDATE users SET ${fields} WHERE id = ?`, values);
+
+    res.json({ message: 'Profile updated successfully' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 };
 
+// מאפשרת למשתמש המחובר לשנות סיסמה לאחר אימות הסיסמה הנוכחית
 const updatePassword = async (req, res) => {
   const targetId = Number(req.params.id);
   if (req.user.id !== targetId)

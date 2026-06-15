@@ -2,10 +2,12 @@ const pool   = require('../db/connection');
 const bcrypt = require('bcryptjs');
 const jwt    = require('jsonwebtoken');
 
+// יוצרת טוקן JWT חתום עם הנתונים שהתקבלו, בתוקף ל-7 ימים
 function signToken(payload) {
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 }
 
+// מקבלת שם משתמש וסיסמה, מאמתת אותם מול ה-DB, ומחזירה טוקן JWT ופרטי המשתמש
 const login = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password)
@@ -40,6 +42,7 @@ const login = async (req, res) => {
   }
 };
 
+// רושמת משתמש חדש: בודקת שהשם והמייל פנויים, מכניסה לטבלת users, מצפינה את הסיסמה ושומרת בטבלת passwords
 const register = async (req, res) => {
   const { username, password, name, email } = req.body;
   if (!username || !password || !name || !email)

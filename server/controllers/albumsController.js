@@ -1,5 +1,6 @@
 const pool = require('../db/connection');
 
+// מחזירה את כל האלבומים, עם אפשרות לסינון לפי userId
 const getAll = async (req, res) => {
   try {
     const { userId } = req.query;
@@ -18,6 +19,7 @@ const getAll = async (req, res) => {
   }
 };
 
+// מחזירה אלבום בודד לפי id, או 404 אם לא נמצא
 const getById = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -32,6 +34,7 @@ const getById = async (req, res) => {
   }
 };
 
+// מחזירה את כל האלבומים השייכים למשתמש לפי id
 const getUserAlbums = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -45,6 +48,7 @@ const getUserAlbums = async (req, res) => {
   }
 };
 
+// מחזירה את כל התמונות השייכות לאלבום לפי id
 const getAlbumPhotos = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -58,14 +62,15 @@ const getAlbumPhotos = async (req, res) => {
   }
 };
 
+// יוצרת אלבום חדש עבור המשתמש המחובר (מזוהה דרך הטוקן) ומחזירה את הרשומה שנוצרה
 const create = async (req, res) => {
-  const { userId, title } = req.body;
-  if (!userId || !title)
-    return res.status(400).json({ message: 'userId and title are required' });
+  const { title } = req.body;
+  if (!title)
+    return res.status(400).json({ message: 'title is required' });
   try {
     const [result] = await pool.query(
       'INSERT INTO albums (user_id, title) VALUES (?, ?)',
-      [userId, title]
+      [req.user.id, title]
     );
     const [rows] = await pool.query(
       'SELECT id, user_id, title FROM albums WHERE id = ?',
@@ -78,6 +83,7 @@ const create = async (req, res) => {
   }
 };
 
+// מעדכנת כותרת אלבום קיים לאחר בדיקת בעלות — רק הבעלים רשאי לעדכן
 const update = async (req, res) => {
   const { title } = req.body;
   try {
@@ -102,6 +108,7 @@ const update = async (req, res) => {
   }
 };
 
+// מוחקת אלבום לאחר בדיקת בעלות — רק הבעלים רשאי למחוק
 const remove = async (req, res) => {
   try {
     const [existing] = await pool.query(

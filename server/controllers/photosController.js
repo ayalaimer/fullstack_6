@@ -1,5 +1,6 @@
 const pool = require('../db/connection');
 
+// מחזירה את כל התמונות, עם אפשרות לסינון לפי albumId
 const getAll = async (req, res) => {
   try {
     const { albumId } = req.query;
@@ -18,6 +19,7 @@ const getAll = async (req, res) => {
   }
 };
 
+// מחזירה תמונה בודדת לפי id, או 404 אם לא נמצאה
 const getById = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -32,6 +34,7 @@ const getById = async (req, res) => {
   }
 };
 
+// יוצרת תמונה חדשה באלבום לאחר בדיקה שהמשתמש הוא בעל האלבום, ומחזירה את הרשומה שנוצרה
 const create = async (req, res) => {
   const { albumId, title, url, thumbnail_url } = req.body;
   if (!albumId || !title || !url || !thumbnail_url)
@@ -60,6 +63,7 @@ const create = async (req, res) => {
   }
 };
 
+// מעדכנת פרטי תמונה (כותרת, url, thumbnail) לאחר בדיקת בעלות דרך האלבום
 const update = async (req, res) => {
   const { title, url, thumbnail_url } = req.body;
   try {
@@ -94,6 +98,7 @@ const update = async (req, res) => {
   }
 };
 
+// מוחקת תמונה לאחר בדיקת בעלות דרך האלבום — רק בעל האלבום רשאי למחוק
 const remove = async (req, res) => {
   try {
     const [existing] = await pool.query(

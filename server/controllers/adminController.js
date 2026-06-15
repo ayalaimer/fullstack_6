@@ -1,5 +1,6 @@
 const pool = require('../db/connection');
 
+// מחזירה את רשימת כל המשתמשים במערכת — מיועדת לשימוש מנהל בלבד
 const listUsers = async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -12,6 +13,7 @@ const listUsers = async (req, res) => {
   }
 };
 
+// חוסמת משתמש לפי id (שינוי role ל-'blocked'), מונעת חסימה עצמית
 const blockUser = async (req, res) => {
   try {
     const targetId = Number(req.params.id);
@@ -32,6 +34,7 @@ const blockUser = async (req, res) => {
   }
 };
 
+// מבטלת חסימת משתמש לפי id (מחזירה role ל-'user')
 const unblockUser = async (req, res) => {
   try {
     const targetId = Number(req.params.id);
