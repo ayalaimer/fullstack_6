@@ -76,7 +76,7 @@ const create = async (req, res) => {
       'SELECT id, user_id, title FROM albums WHERE id = ?',
       [result.insertId]
     );
-    res.status(201).json({message: 'Album created successfully'});
+    res.status(201).json(rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -101,7 +101,7 @@ const update = async (req, res) => {
       'SELECT id, user_id, title FROM albums WHERE id = ?',
       [req.params.id]
     );
-    res.json({message: 'Album updated successfully'});
+    res.json({ message: 'Album updated successfully', updated: { title: newTitle } });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

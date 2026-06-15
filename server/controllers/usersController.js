@@ -109,7 +109,7 @@ const updateProfile = async (req, res) => {
     const values = [...Object.values(updates), targetId];
     await pool.query(`UPDATE users SET ${fields} WHERE id = ?`, values);
 
-    res.json({ message: 'Profile updated successfully' });
+    res.json({ message: 'Profile updated successfully', updated: updates });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

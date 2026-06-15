@@ -48,7 +48,7 @@ const create = async (req, res) => {
       [req.user.id, title, completed ? 1 : 0]
     );
     const [rows] = await pool.query('SELECT * FROM todos WHERE id = ?', [result.insertId]);
-    res.status(201).json({message: 'Todo created successfully'});
+    res.status(201).json(rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -75,7 +75,7 @@ const update = async (req, res) => {
     const values = [...Object.values(updates), req.params.id];
     await pool.query(`UPDATE todos SET ${fields} WHERE id = ?`, values);
 
-    res.json({ message: 'Todo updated successfully' });
+    res.json({ message: 'Todo updated successfully', updated: updates });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
