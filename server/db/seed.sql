@@ -41,7 +41,7 @@ INSERT INTO users (id, username, name, email, role) VALUES
 (@u7,  'Elwyn.Skiles',     'Kurtis Weissnat',          'Telly.Hoeger@billy.biz',    'user'),
 (@u8,  'Maxime_Nienow',    'Nicholas Runolfsdottir V', 'Sherwood@rosamond.me',      'user'),
 (@u9,  'Delphine',         'Glenna Reichert',          'Chaim_McDermott@dana.io',   'user'),
-(@u10, 'Moriah.Stanton',   'Clementina DuBuque',       'Rey.Padberg@karina.biz',    'user');
+(@u10, 'Moriah.Stanton',   'Clementina DuBuque',       'Rey.Padberg@karina.biz',    'admin');
 
 -- ─── TODOS (200) ────────────────────────────────────────────
 INSERT INTO todos (id, user_id, title, completed) VALUES
