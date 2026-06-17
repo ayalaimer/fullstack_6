@@ -21,7 +21,7 @@ export default function AlbumsList() {
   }
 
   function handleUpdate(updated) {
-    setAlbums(prev => prev.map(a => a.id === updated.id ? updated : a))
+    setAlbums(prev => prev.map(a => a.id === updated.id ? { ...a, ...updated } : a))
   }
 
   function handleDelete(id) {

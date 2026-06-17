@@ -75,7 +75,7 @@ const update = async (req, res) => {
     const values = [...Object.values(updates), req.params.id];
     await pool.query(`UPDATE todos SET ${fields} WHERE id = ?`, values);
 
-    res.json({ message: 'Todo updated successfully', updated: updates });
+    res.json({ id: Number(req.params.id), ...updates });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

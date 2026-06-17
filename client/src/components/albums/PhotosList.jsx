@@ -25,7 +25,7 @@ export default function PhotosList({ albumId }) {
   async function saveEdit(id) {
     if (!editTitle.trim()) return
     const updated = await photosService.update(id, { title: editTitle.trim() })
-    setPhotos(prev => prev.map(p => p.id === id ? updated : p))
+    setPhotos(prev => prev.map(p => p.id === id ? { ...p, ...updated } : p))
     setEditingId(null)
   }
 

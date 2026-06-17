@@ -16,7 +16,7 @@ const listUsers = async (req, res) => {
 // חוסמת משתמש לפי id (שינוי role ל-'blocked'), מונעת חסימה עצמית
 const blockUser = async (req, res) => {
   try {
-    const targetId = Number(req.params.id);
+    const targetId = req.params.id;
     if (targetId === req.user.id)
       return res.status(400).json({ message: 'Cannot block yourself' });
 
@@ -37,7 +37,7 @@ const blockUser = async (req, res) => {
 // מבטלת חסימת משתמש לפי id (מחזירה role ל-'user')
 const unblockUser = async (req, res) => {
   try {
-    const targetId = Number(req.params.id);
+    const targetId = req.params.id;
     const [existing] = await pool.query(
       'SELECT id FROM users WHERE id = ?',
       [targetId]

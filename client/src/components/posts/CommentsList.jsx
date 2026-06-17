@@ -23,7 +23,7 @@ export default function CommentsList({ postId, currentUserId, currentUsername })
   async function saveEdit(id) {
     if (!editBody.trim()) return
     const updated = await commentsService.update(id, { userId: currentUserId, body: editBody.trim() })
-    setComments(prev => prev.map(c => c.id === id ? updated : c))
+    setComments(prev => prev.map(c => c.id === id ? { ...c, ...updated } : c))
     setEditingId(null)
   }
 

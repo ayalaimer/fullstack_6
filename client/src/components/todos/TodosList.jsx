@@ -23,7 +23,7 @@ export default function TodosList() {
   }
 
   function handleUpdate(updated) {
-    setTodos(prev => prev.map(t => t.id === updated.id ? updated : t))
+    setTodos(prev => prev.map(t => t.id === updated.id ? { ...t, ...updated } : t))
   }
 
   function handleDelete(id) {

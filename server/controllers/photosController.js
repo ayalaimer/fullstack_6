@@ -56,7 +56,7 @@ const create = async (req, res) => {
       'SELECT id, album_id, title, url, thumbnail_url FROM photos WHERE id = ?',
       [result.insertId]
     );
-    res.status(201).json({message: 'Photo created successfully'});
+    res.status(201).json(rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -91,7 +91,7 @@ const update = async (req, res) => {
       'SELECT id, album_id, title, url, thumbnail_url FROM photos WHERE id = ?',
       [req.params.id]
     );
-    res.json({message: 'Photo updated successfully'});
+    res.json(rows[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });

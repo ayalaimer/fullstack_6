@@ -8,7 +8,7 @@ const getAll = async (req, res) => {
     const params = [];
     if (userId) {
       sql += ' WHERE user_id = ?';
-      params.push(Number(userId));
+      params.push(userId);
     }
     sql += ' ORDER BY id';
     const [rows] = await pool.query(sql, params);
@@ -97,11 +97,7 @@ const update = async (req, res) => {
 
     const newTitle = title !== undefined ? title : existing[0].title;
     await pool.query('UPDATE albums SET title = ? WHERE id = ?', [newTitle, req.params.id]);
-    const [rows] = await pool.query(
-      'SELECT id, user_id, title FROM albums WHERE id = ?',
-      [req.params.id]
-    );
-    res.json({ message: 'Album updated successfully', updated: { title: newTitle } });
+    res.json({ id: Number(req.params.id), user_id: existing[0].user_id, title: newTitle });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
