@@ -3,14 +3,17 @@ const pool = require('../db/connection');
 // מחזירה את כל הפוסטים, עם אפשרות לסינון לפי userId
 const getAll = async (req, res) => {
   try {
-    let sql = 'SELECT * FROM posts WHERE 1=1';
+    let sql = `SELECT p.id, p.user_id, u.username, p.title, p.body
+               FROM posts p
+               JOIN safe_users u ON u.id = p.user_id
+               WHERE 1=1`;
     const params = [];
 
     if (req.query.userId) {
-      sql += ' AND user_id = ?';
+      sql += ' AND p.user_id = ?';
       params.push(req.query.userId);
     }
-    sql += ' ORDER BY id';
+    sql += ' ORDER BY p.id';
 
     const [rows] = await pool.query(sql, params);
     res.json(rows);
@@ -23,7 +26,13 @@ const getAll = async (req, res) => {
 // מחזירה פוסט בודד לפי id, או 404 אם לא נמצא
 const getById = async (req, res) => {
   try {
-    const [rows] = await pool.query('SELECT * FROM posts WHERE id = ?', [req.params.id]);
+    const [rows] = await pool.query(
+      `SELECT p.id, p.user_id, u.username, p.title, p.body
+       FROM posts p
+       JOIN safe_users u ON u.id = p.user_id
+       WHERE p.id = ?`,
+      [req.params.id]
+    );
     if (rows.length === 0) return res.status(404).json({ message: 'Post not found' });
     res.json(rows[0]);
   } catch (err) {
@@ -57,7 +66,13 @@ const create = async (req, res) => {
       'INSERT INTO posts (user_id, title, body) VALUES (?, ?, ?)',
       [req.user.id, title, body || '']
     );
-    const [rows] = await pool.query('SELECT * FROM posts WHERE id = ?', [result.insertId]);
+    const [rows] = await pool.query(
+      `SELECT p.id, p.user_id, u.username, p.title, p.body
+       FROM posts p
+       JOIN safe_users u ON u.id = p.user_id
+       WHERE p.id = ?`,
+      [result.insertId]
+    );
     res.status(201).json(rows[0]);
   } catch (err) {
     console.error(err);
@@ -85,7 +100,14 @@ const update = async (req, res) => {
     const values = [...Object.values(updates), req.params.id];
     await pool.query(`UPDATE posts SET ${fields} WHERE id = ?`, values);
 
-    res.json({ message: 'Post updated successfully', updated: updates });
+    const [updated] = await pool.query(
+      `SELECT p.id, p.user_id, u.username, p.title, p.body
+       FROM posts p
+       JOIN safe_users u ON u.id = p.user_id
+       WHERE p.id = ?`,
+      [req.params.id]
+    );
+    res.json(updated[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
